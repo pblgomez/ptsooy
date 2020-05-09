@@ -3,7 +3,7 @@ Podcast the s\*\*\* out of youtube
 
 A little program that takes your youtube subscriptions and downloads all the Videos and creates xml files for your favourite podcast player
 
-1. Download the subscription_manager.opml from youtube
+1. Download the subscription_manager.opml from [here](https://www.youtube.com/subscription_manager)
 
 1. Rename and modify variables.example.py to variables.py
 
