@@ -9,7 +9,8 @@ A little program that takes your youtube subscriptions and downloads all the Vid
 
 1. Run:
   ```
-  ptsooy.py -i /path/to/subscription_manager.opml
+  pipenv install
+  pipenv run ptsooy.py -i /path/to/subscription_manager.opml
   ```
   or just place the subscription_manager.opml file in the same directory
 

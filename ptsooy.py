@@ -265,10 +265,10 @@ else:
     inputfile = "subscription_manager.opml"
 ##################################
 
-
-# p = subprocess.Popen(["python3", "http_server.py"],
-#                      stdout=subprocess.PIPE,
-#                      stderr=subprocess.PIPE,)
+# Start the web server (not in docker)
+p = subprocess.Popen(["python3", "http_server.py"],
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE,)
 
 
 urls, titles, subs = substract_subs(inputfile)
