@@ -16,4 +16,6 @@ A little program that takes your youtube subscriptions and downloads all the Vid
 
 
 ## For docker (wip)
+docker build -t local/ptsooy .
+
 docker run -d --name ptsooy -p 8080:8080 -v path/to/Videos/:/Videos local/ptsooy
