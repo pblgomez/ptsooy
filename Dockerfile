@@ -30,7 +30,7 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock http_server.py variables.py ptsooy.py entrypoint.sh /app/
 COPY cron/http_server.sh /etc/periodic/15min/
 COPY cron/ptsooy.sh /etc/periodic/daily/
-COPY subscription_manager.opml /app/
+# COPY subscription_manager.opml /app/
 RUN export LANG=en_US.UTF-8
 RUN pipenv install
 

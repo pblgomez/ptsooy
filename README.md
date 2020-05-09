@@ -16,6 +16,8 @@ A little program that takes your youtube subscriptions and downloads all the Vid
 
 
 ## For docker (wip)
-docker build -t local/ptsooy .
+1. Download the subscription_manager.opml from [here](https://www.youtube.com/subscription_manager)
 
-docker run -d --name ptsooy -p 8080:8080 -v path/to/Videos/:/Videos local/ptsooy
+1. docker build -t local/ptsooy .
+
+1. docker run -d --name ptsooy -p 8080:8080 -v path/to/Videos/:/Videos local/ptsooy
