@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  ptsooy:
+    container_name: ptsooy
+    image: local/ptsooy
+    # command: crond -f -l 8
+    # volumes:
+    #   - /path/to/Videos/:/root/Videos
+    # ports:
+    #   - 8080:8080
