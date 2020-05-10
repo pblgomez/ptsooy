@@ -27,7 +27,7 @@ RUN pip3 install youtube-dl
 RUN apk add --no-cache bash
 
 WORKDIR /app
-COPY Pipfile Pipfile.lock http_server.py variables.py ptsooy.py entrypoint.sh /app/
+COPY Pipfile Pipfile.lock http_server.py variables.example.py ptsooy.py entrypoint.sh /app/
 COPY cron/http_server.sh /etc/periodic/15min/
 COPY cron/ptsooy.sh /etc/periodic/daily/
 # COPY subscription_manager.opml /app/
