@@ -38,8 +38,8 @@ RUN pipenv install
 RUN apk del .build-deps
 
 
-RUN crontab -l | { cat; echo "*/2      *       *       *       *       /etc/periodic/daily/ptsooy.sh"; } | crontab -
-RUN crontab -l | { cat; echo "*       *       *       *       *       /etc/periodic/15min/http_server.sh"; } | crontab -
+RUN crontab -l | { cat; echo "*      */3       *       *       *       /etc/periodic/daily/ptsooy.sh"; } | crontab -
+# RUN crontab -l | { cat; echo "*       *       *       *       *       /etc/periodic/15min/http_server.sh"; } | crontab -
 RUN mkdir /Videos
 
 ENTRYPOINT /app/entrypoint.sh
