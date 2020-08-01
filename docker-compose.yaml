@@ -13,9 +13,12 @@ services:
     volumes:
       - /path/to/subscription_manager:/app/subscription_manager
       - /path/to/Videos/:/app/Videos/
-    ports:
-      - 8069:80
     restart: unless-stopped
 
-  nginx:
-    image: nginx-alpine
+  ptsooy-webserver:
+    image: halverneus/static-file-server:latest
+    container_name: ptsooy-webserver
+    volumes:
+      - /path/to/Videos/:/web:ro
+    ports:
+      - 80:8080

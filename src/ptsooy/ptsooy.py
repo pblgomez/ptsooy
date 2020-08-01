@@ -18,7 +18,7 @@ channels = "channels.yaml"
 
 
 def delete_old():
-    if keep_newer_than > 1:
+    if int(keep_newer_than) > 1:
         from glob import glob
         result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], '*'))]
         now = time.time()
@@ -111,7 +111,6 @@ def create_rss(author, link):
 
 
 def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
-    # from variables import host, port
     # print("El link es: " + link)
     title = title.replace("&", "&#38;")
 
@@ -132,7 +131,7 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
         <link>{link_orig}</link>
         <description>{summary}</description>
         <pubDate>{published}</pubDate>
-        <enclosure url="{host}:{port}/{link}" length="{file_size}" type="video/mp4"></enclosure>
+        <enclosure url="{host}/{link}" length="{file_size}" type="video/mp4"></enclosure>
         <itunes:author>{author}</itunes:author>
         <itunes:subtitle>{title}</itunes:subtitle>
         <itunes:summary>{summary}</itunes:summary>
@@ -248,14 +247,6 @@ def myParser():
         dest="host",
     )
     parser.add_argument(
-        "-p",
-        "--port",
-        required=False,
-        help="Port of the host for the rss feed if not 80",
-        type=str,
-        dest="port",
-    )
-    parser.add_argument(
         "-k",
         "--keep_newer_than",
         required=False,
@@ -270,7 +261,7 @@ def myParser():
 def main():
 
     args, parser = myParser()
-    global date_after, vids_count, host, port, keep_newer_than
+    global date_after, vids_count, host, keep_newer_than
 
     if "date_after" in os.environ:
         date_after = os.environ["date_after"]
@@ -293,17 +284,10 @@ def main():
     else:
         host = "http://localhost"
 
-    if "port" in os.environ:
-        port = os.environ["port"]
-    elif args.port:
-        port = args.port
-    else:
-        port = 80
-
     if "keep_newer_than" in os.environ:
         keep_newer_than = os.environ["keep_newer_than"]
     elif args.keep_newer_than:
-        keep_newer_than = int(args.keep_newer_than)
+        keep_newer_than = args.keep_newer_than
     else:
         keep_newer_than = 7
 
