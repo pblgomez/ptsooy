@@ -21,21 +21,12 @@ def delete_old():
     if keep_newer_than > 1:
         from glob import glob
         result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], '*'))]
-        # print(result)
-        # print(x)
-        # print("Cheking for old files in :" + author)
-        # path = r"Videos/" + author
         now = time.time()
         for f in result:
             if os.stat(f).st_mtime < now - keep_newer_than * 86400:
                 if os.path.isfile(f):
                     print("Deleting: " + f)
-        # for f in os.listdir(path):
-        #     f = os.path.join(path, f)
-        #     if os.stat(f).st_mtime < now - keep_newer_than * 86400:
-        #         if os.path.isfile(f):
-        #             print("Deleting: " + f)
-        #             os.remove(f)
+                    os.remove(f)
 
 
 def download_videos():
