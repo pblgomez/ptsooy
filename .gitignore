@@ -1,2 +1,9 @@
-variables.py
+channels.yaml
+.venv
+.vscode
+*/*egg-info
+__pycache__
+tests
 Videos
+poetry.*
+subscription_manager

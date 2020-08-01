@@ -1,23 +1,56 @@
 # ptsooy
-Podcast the s\*\*\* out of youtube
+## Podcast the s*** out of youtube
 
 A little program that takes your youtube subscriptions and downloads all the Videos and creates xml files for your favourite podcast player
 
-1. Download the subscription_manager.opml from [here](https://www.youtube.com/subscription_manager)
+## How to run
 
-1. Rename and modify variables.example.py to variables.py
+Download the subscription_manager from [here](https://www.youtube.com/subscription_manager)
 
-1. Run:
-  ```
-  pipenv install
-  pipenv run ptsooy.py -i /path/to/subscription_manager.opml
-  ```
-  or just place the subscription_manager.opml file in the same directory
+### With Python poetry
+```
+poetry install
+poetry run python src/ptsooy
+```
 
-
-## For docker (wip)
-1. Download the subscription_manager.opml from [here](https://www.youtube.com/subscription_manager)
-
-1. docker build -t local/ptsooy .
+## With docker
+```
+docker run --rm --name ptsooy pablogomez/ptsooy -p 80:80 -v path/to/Videos/:/Videos local/ptsooy
+```
 
 1. docker run -d --name ptsooy -p 8080:8080 -v path/to/Videos/:/Videos local/ptsooy
+
+
+### docker
+```
+docker run --rm \
+  -v /path/to/subscription_manager:/app/subscription_manager \
+  -v /path/to/Videos/:/app/Videos/ \
+  pablogomez/ptsooy \
+  -i subscription_manager
+  --date_after=20200731 \
+  --vids_count=3 \
+  --host=https://ptsooy.example.com \
+  --port=80
+```
+
+### docker-compose
+```
+---
+version: '3.6'
+services:
+  ptsooy:
+    image: pablogomez/ptsooy
+    container_name: ptsooy
+    environment:
+      - date_after: 20200731
+      - vids_count: 3
+      - host: https://ptsooy.example.com
+      - port: 6969
+    volumes:
+      - /path/to/subscription_manager:/app/subscription_manager
+      - /path/to/Videos/:/app/Videos/
+    ports:
+      - 8069:80
+    restart: unless-stopped
+```
