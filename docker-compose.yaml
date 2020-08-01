@@ -9,6 +9,7 @@ services:
       - vids_count=3
       - host=https://ptsooy.example.com
       - port=80
+      - keep_newer_than=0 # days, 0 keeps all
     volumes:
       - /path/to/subscription_manager:/app/subscription_manager
       - /path/to/Videos/:/app/Videos/

@@ -17,17 +17,25 @@ import time
 channels = "channels.yaml"
 
 
-def delete_old(author):
+def delete_old():
     if keep_newer_than > 1:
-        print("Cheking for old files in :" + author)
-        path = r"Videos/" + author
+        from glob import glob
+        result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], '*'))]
+        # print(result)
+        # print(x)
+        # print("Cheking for old files in :" + author)
+        # path = r"Videos/" + author
         now = time.time()
-        for f in os.listdir(path):
-            f = os.path.join(path, f)
+        for f in result:
             if os.stat(f).st_mtime < now - keep_newer_than * 86400:
                 if os.path.isfile(f):
                     print("Deleting: " + f)
-                    os.remove(f)
+        # for f in os.listdir(path):
+        #     f = os.path.join(path, f)
+        #     if os.stat(f).st_mtime < now - keep_newer_than * 86400:
+        #         if os.path.isfile(f):
+        #             print("Deleting: " + f)
+        #             os.remove(f)
 
 
 def download_videos():
@@ -43,7 +51,7 @@ def download_videos():
 
             # parse YouTube feed
             rss = fp.parse(urls[i])
-            delete_old(rss.feed.author)
+
             create_rss(rss.feed.author, rss.feed.link)
             i += 1
 
@@ -256,13 +264,22 @@ def myParser():
         type=str,
         dest="port",
     )
+    parser.add_argument(
+        "-k",
+        "--keep_newer_than",
+        required=False,
+        help="Keep newer than X days",
+        type=str,
+        dest="keep_newer_than",
+    )
     args = parser.parse_args()
     return args, parser
 
 
 def main():
+
     args, parser = myParser()
-    global date_after, vids_count, host, port, keep_newer_that
+    global date_after, vids_count, host, port, keep_newer_than
 
     if "date_after" in os.environ:
         date_after = os.environ["date_after"]
@@ -295,9 +312,13 @@ def main():
     if "keep_newer_than" in os.environ:
         keep_newer_than = os.environ["keep_newer_than"]
     elif args.keep_newer_than:
-        keep_newer_than = args.keep_newer_than
+        keep_newer_than = int(args.keep_newer_than)
     else:
         keep_newer_than = 7
+
+    delete_old()
+
+
 
     if args.inputfile:
         inputfile = args.inputfile
@@ -307,7 +328,7 @@ def main():
             download_videos()
     else:
         if os.path.isfile("subscription_manager"):
-            feeds = substract_opml_subs(inputfile)
+            feeds = substract_opml_subs("subscription_manager")
             ToYaml(feeds)
             download_videos()
         elif os.path.isfile("channels.yaml"):
@@ -318,4 +339,7 @@ def main():
             sys.exit(0)
 
 
-main()
+
+while True:
+    main()
+    time.sleep(3*3600)
