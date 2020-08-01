@@ -3,10 +3,11 @@
 
 A little program that takes your youtube subscriptions and downloads all the Videos and creates xml files for your favourite podcast player
 
+
 ## How to run
 
 Download the subscription_manager from [here](https://www.youtube.com/subscription_manager)
-
+Only use it when you want to import all subscriptions again. So you can delete this file and manage it with channels.yaml
 ### With Python poetry
 ```
 poetry install
@@ -15,10 +16,8 @@ poetry run python src/ptsooy
 
 ## With docker
 ```
-docker run --rm --name ptsooy pablogomez/ptsooy -p 80:80 -v path/to/Videos/:/Videos local/ptsooy
+docker run --rm --name ptsooy -p 80:80 -v path/to/Videos/:/Videos pablogomez/ptsooy -i subscription_manager
 ```
-
-1. docker run -d --name ptsooy -p 8080:8080 -v path/to/Videos/:/Videos local/ptsooy
 
 
 ### docker

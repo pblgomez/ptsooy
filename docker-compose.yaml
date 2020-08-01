@@ -5,13 +5,16 @@ services:
     image: pablogomez/ptsooy
     container_name: ptsooy
     environment:
-      - date_after: 20200731
-      - vids_count: 3
-      - host: https://ptsooy.example.com
-      - port: 6969
+      - date_after=20200731
+      - vids_count=3
+      - host=https://ptsooy.example.com
+      - port=80
     volumes:
       - /path/to/subscription_manager:/app/subscription_manager
       - /path/to/Videos/:/app/Videos/
     ports:
       - 8069:80
     restart: unless-stopped
+
+  nginx:
+    image: nginx-alpine

@@ -262,7 +262,7 @@ def myParser():
 
 def main():
     args, parser = myParser()
-    global date_after, vids_count, host, port
+    global date_after, vids_count, host, port, keep_newer_that
 
     if "date_after" in os.environ:
         date_after = os.environ["date_after"]
@@ -306,7 +306,11 @@ def main():
             ToYaml(feeds)
             download_videos()
     else:
-        if os.path.isfile("channels.yaml"):
+        if os.path.isfile("subscription_manager"):
+            feeds = substract_opml_subs(inputfile)
+            ToYaml(feeds)
+            download_videos()
+        elif os.path.isfile("channels.yaml"):
             download_videos()
         else:
             parser.print_help()
