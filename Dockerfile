@@ -6,7 +6,7 @@ COPY pyproject.toml ./
 RUN poetry install --no-dev
 
 
-FROM python:3.8-alpine as runtime
+FROM python:3.8-slim as runtime
 WORKDIR /app
 COPY --from=python-deps /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
