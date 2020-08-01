@@ -20,5 +20,5 @@ jobs:
       - name: build the image
         run: |
           docker buildx build --push \
-            --tag pablogomez/ptsooy:latest \
+            --tag pablogomez/ptsooy:${{ github.sha }} \
             --platform linux/amd64,linux/arm64,linux/arm/v7 .

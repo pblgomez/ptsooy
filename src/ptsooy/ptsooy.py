@@ -13,29 +13,28 @@ from youtube_dl.utils import DateRange
 import datetime
 import time
 
-
+# file where all channels are read from after import
 channels = "channels.yaml"
 
 
 def delete_old():
     if int(keep_newer_than) > 1:
         from glob import glob
-        result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], '*'))]
+
+        result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], "*"))]
         now = time.time()
         for f in result:
             if os.stat(f).st_mtime < now - keep_newer_than * 86400:
-                if os.path.isfile(f):
-                    print("Deleting: " + f)
-                    os.remove(f)
+                # if os.path.isfile(f):
+                print("Deleting: " + f)
+                os.remove(f)
 
 
 def download_videos():
     with open(channels, "r") as f:
         all_feeds = yaml.load(f, Loader=yaml.FullLoader)
         subs = len(all_feeds)
-        # print(subs)
         urls = list(all_feeds.values())
-        # print(urls)
 
         i = 0
         while i < subs:
@@ -111,14 +110,12 @@ def create_rss(author, link):
 
 
 def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
-    # print("El link es: " + link)
     title = title.replace("&", "&#38;")
 
     summary = summary.replace("&", "&#38;")
 
     # Check if file exist
     if os.path.isfile("Videos/" + link):
-        # if os.path.isfile(link):
         duration, file_size = get_info(link)
 
         # fix link name in for web
@@ -165,7 +162,6 @@ def get_info(filename):
     duration = get_length(filename)
     duration = str(datetime.timedelta(seconds=duration))[:7]
     # Get filesize
-    # file_size = os.path.getsize("Videos/" + filename)
     file_size = os.path.getsize(filename)
     return (duration, file_size)
 
@@ -293,8 +289,6 @@ def main():
 
     delete_old()
 
-
-
     if args.inputfile:
         inputfile = args.inputfile
         if os.path.isfile(inputfile):
@@ -314,7 +308,6 @@ def main():
             sys.exit(0)
 
 
-
 while True:
     main()
-    time.sleep(3*3600)
+    time.sleep(3 * 3600)
