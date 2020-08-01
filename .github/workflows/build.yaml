@@ -21,4 +21,4 @@ jobs:
         run: |
           docker buildx build --push \
             --tag pablogomez/ptsooy:latest \
-            --platform linux/amd64,linux/arm64,linux/armv7 .
+            --platform linux/amd64,linux/arm64,linux/arm/v7 .
