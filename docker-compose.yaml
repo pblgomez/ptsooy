@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   ptsooy-webserver:
-    image: halverneus/static-file-server:latest
+    build: ~/configs/ptsooy/.
     container_name: ptsooy-webserver
     volumes:
       - /path/to/Videos/:/web:ro
