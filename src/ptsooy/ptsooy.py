@@ -10,9 +10,8 @@ import re
 import feedparser as fp
 import youtube_dl
 from youtube_dl.utils import DateRange
-import datetime
-import time
-from ffmpeg import ffprobe
+import time, datetime
+import ffmpeg
 
 # file where all channels are read from after import
 channels = "channels.yaml"
@@ -20,7 +19,7 @@ channels = "channels.yaml"
 
 def delete_old(keep_newer_than):
     if type(keep_newer_than) != int:
-        keep_newer_than=int(keep_newer_than)
+        keep_newer_than = int(keep_newer_than)
     if keep_newer_than > 1:
         from glob import glob
 
@@ -276,7 +275,7 @@ def main():
     else:
         vids_count = 3
     if type(vids_count) != int:
-        vids_count=int(vids_count)
+        vids_count = int(vids_count)
 
     if "host" in os.environ:
         host = os.environ["host"]
@@ -292,7 +291,7 @@ def main():
     else:
         keep_newer_than = 7
     if type(keep_newer_than) != int:
-        keep_newer_than=int(keep_newer_than)
+        keep_newer_than = int(keep_newer_than)
 
     delete_old(keep_newer_than)
 
@@ -317,4 +316,14 @@ def main():
 
 while True:
     main()
-    time.sleep(3 * 3600)
+
+
+    sleeptime = 3 * 3600
+    print("Done, now waiting " + str(int(sleeptime / 3600)) + " hours for the next run")
+    i = 0
+    while i < sleeptime:
+        t=str(datetime.timedelta(seconds=sleeptime - i))
+        print(t, flush=True, end="")
+        print("\r", end="")
+        i += 1
+        time.sleep(1)
