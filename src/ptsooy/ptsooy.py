@@ -18,7 +18,10 @@ channels = "channels.yaml"
 
 
 def delete_old():
-    if int(keep_newer_than) > 1:
+    keep_newer_than = "18"
+    if type(keep_newer_than) != int:
+        keep_newer_than=int(keep_newer_than)
+    if keep_newer_than > 1:
         from glob import glob
 
         result = [y for x in os.walk("Videos") for y in glob(os.path.join(x[0], "*"))]
