@@ -17,7 +17,7 @@ import time
 channels = "channels.yaml"
 
 
-def delete_old():
+def delete_old(keep_newer_than):
     if type(keep_newer_than) != int:
         keep_newer_than=int(keep_newer_than)
     if keep_newer_than > 1:
@@ -259,7 +259,7 @@ def myParser():
 def main():
 
     args, parser = myParser()
-    global date_after, vids_count, host, keep_newer_than
+    global date_after, vids_count, host
 
     if "date_after" in os.environ:
         date_after = os.environ["date_after"]
@@ -293,7 +293,7 @@ def main():
     if type(keep_newer_than) != int:
         keep_newer_than=int(keep_newer_than)
 
-    delete_old()
+    delete_old(keep_newer_than)
 
     if args.inputfile:
         inputfile = args.inputfile
