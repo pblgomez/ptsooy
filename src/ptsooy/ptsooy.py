@@ -18,7 +18,6 @@ channels = "channels.yaml"
 
 
 def delete_old():
-    keep_newer_than = "18"
     if type(keep_newer_than) != int:
         keep_newer_than=int(keep_newer_than)
     if keep_newer_than > 1:
@@ -275,6 +274,8 @@ def main():
         vids_count = args.vids_count
     else:
         vids_count = 3
+    if type(vids_count) != int:
+        vids_count=int(vids_count)
 
     if "host" in os.environ:
         host = os.environ["host"]
@@ -289,6 +290,8 @@ def main():
         keep_newer_than = args.keep_newer_than
     else:
         keep_newer_than = 7
+    if type(keep_newer_than) != int:
+        keep_newer_than=int(keep_newer_than)
 
     delete_old()
 
