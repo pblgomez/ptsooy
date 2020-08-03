@@ -11,7 +11,7 @@ import feedparser as fp
 import youtube_dl
 from youtube_dl.utils import DateRange
 import time, datetime
-import ffmpeg
+import ffprobe
 
 # file where all channels are read from after import
 channels = "channels.yaml"
