@@ -10,7 +10,7 @@ feedparser = "^5.2.1"
 opml = "^0.5"
 pyyaml = "^5.3.1"
 youtube_dl = "^2020.7.28"
-ffprobe = "^0.5"
+ffprobe-python = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

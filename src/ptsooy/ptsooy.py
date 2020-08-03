@@ -147,14 +147,10 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
 # Def to get the lenght of the videos
 def get_length(filename):
     from subprocess import check_output
-
-    # For Linux
-    a = str(
-        check_output('ffprobe -i  "' + filename + '" 2>&1 |grep "Duration"', shell=True)
-    )
-    a = a.split(",")[0].split("Duration:")[1].strip()
-    h, m, s = a.split(":")
-    duration = int(h) * 3600 + int(m) * 60 + float(s)
+    metadata = ffprobe.FFProbe(filename)
+    for stream in metadata.streams:
+        if stream.is_video():
+            duration = format(stream.duration_seconds())
     return float(duration)
 
 
