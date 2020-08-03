@@ -11,7 +11,6 @@ import feedparser as fp
 import youtube_dl
 from youtube_dl.utils import DateRange
 import time, datetime
-import ffprobe
 
 # file where all channels are read from after import
 channels = "channels.yaml"
@@ -147,10 +146,13 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
 # Def to get the lenght of the videos
 def get_length(filename):
     from subprocess import check_output
-    metadata = ffprobe.FFProbe(filename)
-    for stream in metadata.streams:
-        if stream.is_video():
-            duration = format(stream.duration_seconds())
+
+    a = str(
+        check_output('ffprobe -i  "' + filename + '" 2>&1 |grep "Duration"', shell=True)
+    )
+    a = a.split(",")[0].split("Duration:")[1].strip()
+    h, m, s = a.split(":")
+    duration = int(h) * 3600 + int(m) * 60 + float(s)
     return float(duration)
 
 
@@ -313,12 +315,11 @@ def main():
 while True:
     main()
 
-
     sleeptime = 3 * 3600
     print("Done, now waiting " + str(int(sleeptime / 3600)) + " hours for the next run")
     i = 0
     while i < sleeptime:
-        t=str(datetime.timedelta(seconds=sleeptime - i))
+        t = str(datetime.timedelta(seconds=sleeptime - i))
         print(t, flush=True, end="")
         print("\r", end="")
         i += 1

@@ -11,12 +11,20 @@ Only use it when you want to import all subscriptions again. So you can delete t
 ### With Python poetry
 ```
 poetry install
-poetry run python src/ptsooy
+poetry run python src/ptsooy -i subscription_manager
 ```
 
 ## With docker
 ```
-docker run --rm --name ptsooy -p 80:80 -v path/to/Videos/:/Videos pablogomez/ptsooy -i subscription_manager
+docker run --rm --name ptsooy \
+  -p 80:80 \
+  -v path/to/Videos/:/Videos pablogomez/ptsooy \
+  -v $HOME/configs/ptsooy/subscription_manager:/app/subscription_manager \
+  -e date_after=20200731 \
+  -e vids_count=3
+  -e host=https://ptsooy.example.com
+  -e port=6969
+  pablogomez/ptsooy
 ```
 
 
