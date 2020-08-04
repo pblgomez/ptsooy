@@ -13,7 +13,7 @@ from youtube_dl.utils import DateRange
 import time, datetime
 
 # file where all channels are read from after import
-channels = "channels.yaml"
+channels = "Videos/channels.yaml"
 
 
 def delete_old(keep_newer_than):
@@ -304,7 +304,7 @@ def main():
             feeds = substract_opml_subs("subscription_manager")
             ToYaml(feeds)
             download_videos()
-        elif os.path.isfile("channels.yaml"):
+        elif os.path.isfile(channels):
             download_videos()
         else:
             parser.print_help()
