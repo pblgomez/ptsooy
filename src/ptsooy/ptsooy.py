@@ -42,8 +42,8 @@ def download_videos():
 
             # parse YouTube feed
             rss = fp.parse(urls[i])
-
-            create_rss(rss.feed.author, rss.feed.link)
+            thumbnail = rss.entries[0].media_thumbnail[0]['url']
+            create_rss(rss.feed.author, rss.feed.link, thumbnail)
             i += 1
 
             y = 0
@@ -79,7 +79,7 @@ def download_videos():
             finish_rss(rss.feed.author)
 
 
-def create_rss(author, link):
+def create_rss(author, link, image):
     now = datetime.datetime.now()
     now = (
         now.strftime("%a")
@@ -99,6 +99,7 @@ def create_rss(author, link):
   <channel>
     <title>{author}</title>
     <link>{link}</link>
+    <image><url>{image}</url></image>
     <description>Podcast version of {author}</description>
     <lastBuildDate>{now}</lastBuildDate>
     <itunes:author>{author}</itunes:author>"""
