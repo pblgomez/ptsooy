@@ -42,7 +42,7 @@ def download_videos():
 
             # parse YouTube feed
             rss = fp.parse(urls[i])
-            thumbnail = rss.entries[0].media_thumbnail[0]['url']
+            thumbnail = rss.entries[0].media_thumbnail[0]["url"]
             create_rss(rss.feed.author, rss.feed.link, thumbnail)
             i += 1
 
@@ -83,7 +83,7 @@ def create_rss(author, link, image):
     now = datetime.datetime.now()
     now = (
         now.strftime("%a")
-        + ","
+        + ", "
         + now.strftime("%d")
         + " "
         + now.strftime("%b")
@@ -115,6 +115,10 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
     title = title.replace("&", "&#38;")
 
     summary = summary.replace("&", "&#38;")
+
+    published = published.replace("T", " ")
+    published = datetime.datetime.strptime(published, "%Y-%m-%d %H:%M")
+    published = published.strftime("%a, %d %b %Y %H:%M")
 
     # Check if file exist
     if os.path.isfile("Videos/" + link):
