@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ptsooy"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Pablo Gómez <pablogomez@pablogomez.com>"]
 
