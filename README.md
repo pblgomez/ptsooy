@@ -31,6 +31,7 @@ docker run --rm --name ptsooy \
 ### docker
 ```
 docker run --rm \
+  -p 80:80 \
   -v /path/to/subscription_manager:/app/subscription_manager \
   -v /path/to/Videos/:/app/Videos/ \
   pablogomez/ptsooy \
@@ -38,7 +39,6 @@ docker run --rm \
   --date_after=20200731 \
   --vids_count=3 \
   --host=https://ptsooy.example.com \
-  --port=80
 ```
 
 ### docker-compose
@@ -53,7 +53,6 @@ services:
       - date_after: 20200731
       - vids_count: 3
       - host: https://ptsooy.example.com
-      - port: 6969
     volumes:
       - /path/to/subscription_manager:/app/subscription_manager
       - /path/to/Videos/:/app/Videos/
@@ -61,3 +60,6 @@ services:
       - 8069:80
     restart: unless-stopped
 ```
+
+
+TIP: Use chmod g+s Videos/ to keep permissions on the folder to be able to modify with normal user.

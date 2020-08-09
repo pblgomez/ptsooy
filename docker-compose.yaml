@@ -8,7 +8,6 @@ services:
       - date_after=20200731
       - vids_count=3
       - host=https://ptsooy.example.com
-      - port=80
       - keep_newer_than=0 # days, 0 keeps all
     volumes:
       - /path/to/subscription_manager:/app/subscription_manager
@@ -16,7 +15,7 @@ services:
     restart: unless-stopped
 
   ptsooy-webserver:
-    build: ~/configs/ptsooy/.
+    build: ~/config/ptsooy/.
     container_name: ptsooy-webserver
     volumes:
       - /path/to/Videos/:/web:ro
