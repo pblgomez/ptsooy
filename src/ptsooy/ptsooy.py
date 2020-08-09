@@ -26,9 +26,13 @@ def delete_old(keep_newer_than):
         now = time.time()
         for f in result:
             if os.stat(f).st_mtime < now - keep_newer_than * 86400:
-                # if os.path.isfile(f):
-                print("Deleting: " + f)
-                os.remove(f)
+                if os.path.isfile(f):
+                    print("Deleting file: " + f)
+                    os.remove(f)
+                if os.path.isdir(f):
+                    if len(os.listdir(f)) == 0:
+                        print("Deleting directory: " + f)
+                        os.rmdir(f)
 
 
 def download_videos():
@@ -118,7 +122,7 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
 
     published = published.replace("T", " ")
     published = datetime.datetime.strptime(published, "%Y-%m-%d %H:%M")
-    published = published.strftime("%a, %d %b %Y %H:%M")
+    published = published.strftime("%a, %d %b %Y %H:%M:%S %z")
 
     # Check if file exist
     if os.path.isfile("Videos/" + link):
