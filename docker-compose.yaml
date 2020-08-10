@@ -18,6 +18,6 @@ services:
     build: ~/config/ptsooy/.
     container_name: ptsooy-webserver
     volumes:
-      - /path/to/Videos/:/web:ro
+      - /path/to/Videos/:/usr/share/nginx/html:ro
     ports:
       - 80:8080
