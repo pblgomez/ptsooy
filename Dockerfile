@@ -17,8 +17,8 @@ RUN poetry install --no-dev
 
 # ffprobe
 RUN apk add --no-cache curl xz
-COPY ffprobe.sh /root/
-RUN /root/ffprobe.sh
+COPY ffmpeg_ffprobe.sh /root/
+RUN /root/ffmpeg_ffprobe.sh
 
 
 FROM base
@@ -34,7 +34,7 @@ COPY --from=build_lxml /usr/lib/libgcrypt.so.20 /usr/lib/libgcrypt.so.20
 COPY --from=build_lxml /usr/lib/libgpg-error.so.0 /usr/lib/libgpg-error.so.0
 RUN pip install --no-cache --no-index --find-links=/root/lxml_wheel/* lxml
 # ffprobe
-COPY --from=build_lxml /ffprobe /usr/bin/
+COPY --from=build_lxml /ff* /usr/bin/
 
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 COPY src/*/* ./
