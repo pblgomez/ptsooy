@@ -59,6 +59,7 @@ def download_videos():
             y = 0
             for item in rss.entries:
                 if y < vids_count:
+                    y += 1
                     ydl_opts = {
                         # "simulate": True,
                         "format": "best",  # "bestvideo+bestaudio"
@@ -68,16 +69,20 @@ def download_videos():
                         "download_archive": "Videos/archive.txt",
                         "daterange": DateRange(date_after),
                     }
-                    try:
-                        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                            info = ydl.extract_info(item["link"], download=True)
-                            filename = ydl.prepare_filename(info)
-                            filename = str(filename)
-                            filename = filename.replace("Videos/", "")
-                            video_thumbnail = info.get("thumbnail", None)
-                    except:
-                        print("Error")
-                    print(video_thumbnail)
+
+                    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                        info = ydl.extract_info(item["link"], download=True)
+
+                        if not info:
+                            print("Cannot download video" + item["link"])
+                            continue
+
+                        filename = ydl.prepare_filename(info)
+                        filename = str(filename)
+                        filename = filename.replace("Videos/", "")
+                        video_thumbnail = info.get("thumbnail", None)
+
+
                     fill_rss(
                         item["author"],
                         item["title"],
@@ -88,11 +93,7 @@ def download_videos():
                         video_thumbnail,
                     )
 
-                    y += 1
-            try:
-                finish_rss(rss.feed.author)
-            except:
-                pass
+            finish_rss(rss.feed.author)
 
 
 def create_rss(author, link, image):
