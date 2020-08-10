@@ -46,8 +46,14 @@ def download_videos():
 
             # parse YouTube feed
             rss = fp.parse(urls[i])
-            thumbnail = rss.entries[0].media_thumbnail[0]["url"]
-            create_rss(rss.feed.author, rss.feed.link, thumbnail)
+            try:
+                thumbnail = rss.entries[0].media_thumbnail[0]["url"]
+                create_rss(rss.feed.author, rss.feed.link, thumbnail)
+            except:
+                pass
+
+            # thumbnail = rss.entries[0].media_thumbnail[0]["url"]
+            # create_rss(rss.feed.author, rss.feed.link, thumbnail)
             i += 1
 
             y = 0
@@ -62,13 +68,16 @@ def download_videos():
                         "download_archive": "Videos/archive.txt",
                         "daterange": DateRange(date_after),
                     }
-                    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                        info = ydl.extract_info(item["link"], download=True)
-                        filename = ydl.prepare_filename(info)
-                        filename = str(filename)
-                        filename = filename.replace("Videos/", "")
-                        video_thumbnail = info.get("thumbnail", None)
-
+                    try:
+                        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                            info = ydl.extract_info(item["link"], download=True)
+                            filename = ydl.prepare_filename(info)
+                            filename = str(filename)
+                            filename = filename.replace("Videos/", "")
+                            video_thumbnail = info.get("thumbnail", None)
+                    except:
+                        print("Error")
+                    print(video_thumbnail)
                     fill_rss(
                         item["author"],
                         item["title"],
@@ -80,7 +89,10 @@ def download_videos():
                     )
 
                     y += 1
-            finish_rss(rss.feed.author)
+            try:
+                finish_rss(rss.feed.author)
+            except:
+                pass
 
 
 def create_rss(author, link, image):
