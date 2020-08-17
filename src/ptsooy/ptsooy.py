@@ -91,9 +91,9 @@ def download_videos():
                         item["summary"],
                         video_thumbnail,
                     )
-
+                print("Waiting 60 seconds for the next video...")
+                time.sleep(60)
             finish_rss(rss.feed.author)
-            time.sleep(60)
 
 
 def create_rss(author, link, image):
