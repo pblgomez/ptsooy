@@ -82,7 +82,6 @@ def download_videos():
                         filename = filename.replace("Videos/", "")
                         video_thumbnail = info.get("thumbnail", None)
 
-
                     fill_rss(
                         item["author"],
                         item["title"],
@@ -94,6 +93,7 @@ def download_videos():
                     )
 
             finish_rss(rss.feed.author)
+            time.sleep(60)
 
 
 def create_rss(author, link, image):
