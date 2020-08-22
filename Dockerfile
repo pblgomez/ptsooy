@@ -2,6 +2,11 @@ FROM python:3.8-alpine as base
 
 FROM base as build_lxml
 
+# ffprobe
+RUN apk add --no-cache curl xz
+COPY ffmpeg_ffprobe.sh /root/
+RUN /root/ffmpeg_ffprobe.sh
+
 # For lxml
 RUN apk add --no-cache build-base gcc musl-dev python3-dev libffi-dev libxml2-dev libxslt-dev
 RUN python -OO -m pip install --no-cache-dir -U pip
@@ -14,12 +19,6 @@ ENV PATH=/root/.poetry/bin:$PATH
 RUN poetry config virtualenvs.create false
 COPY pyproject.toml ./
 RUN poetry install --no-dev
-
-# ffprobe
-RUN apk add --no-cache curl xz
-COPY ffmpeg_ffprobe.sh /root/
-RUN /root/ffmpeg_ffprobe.sh
-
 
 FROM base
 WORKDIR /app
