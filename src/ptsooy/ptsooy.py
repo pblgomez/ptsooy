@@ -81,6 +81,8 @@ def download_videos():
                         filename = str(filename)
                         filename = filename.replace("Videos/", "")
                         video_thumbnail = info.get("thumbnail", None)
+                        video_thumbnail = video_thumbnail.split(".jpg", 0)
+                        print (video_thumbnail)
 
                     fill_rss(
                         item["author"],
