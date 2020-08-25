@@ -141,6 +141,7 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
         duration, file_size = get_info(link)
 
         # fix link name in for web
+        author = urllib.parse.quote(author)
         link = urllib.parse.quote(link)
 
         #extension
