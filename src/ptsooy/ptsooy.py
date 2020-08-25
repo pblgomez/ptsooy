@@ -51,9 +51,6 @@ def download_videos():
                 create_rss(rss.feed.author, rss.feed.link, thumbnail)
             except:
                 pass
-
-            # thumbnail = rss.entries[0].media_thumbnail[0]["url"]
-            # create_rss(rss.feed.author, rss.feed.link, thumbnail)
             i += 1
 
             y = 0
@@ -62,7 +59,7 @@ def download_videos():
                     y += 1
                     ydl_opts = {
                         # "simulate": True,
-                        "format": "best",  # "bestvideo+bestaudio"
+                        "format": "bestvideo+bestaudio/best",  # "bestvideo+bestaudio", "best"
                         "outtmpl": "Videos/%(uploader)s/%(title)s.%(ext)s",
                         # "restrictfilenames": "True",
                         "ignoreerrors": True,
@@ -81,8 +78,8 @@ def download_videos():
                         filename = str(filename)
                         filename = filename.replace("Videos/", "")
                         video_thumbnail = info.get("thumbnail", None)
-                        video_thumbnail = video_thumbnail.split(".jpg", 0)
-                        print (video_thumbnail)
+                        video_thumbnail = video_thumbnail.split(".jpg", 1)[0]
+                        video_thumbnail = video_thumbnail + ".jpg"
 
                     fill_rss(
                         item["author"],
@@ -146,6 +143,9 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
         # fix link name in for web
         link = urllib.parse.quote(link)
 
+        #extension
+        ext=os.path.splitext(link)[1][1:]
+
         rss_fill_content = f"""
       <item>
         <guid>"{link}"</guid>
@@ -153,7 +153,7 @@ def fill_rss(author, title, link_orig, link, published, summary, thumb_vid):
         <link>{link_orig}</link>
         <description>{summary}</description>
         <pubDate>{published}</pubDate>
-        <enclosure url="{host}/{link}" length="{file_size}" type="video/mp4"></enclosure>
+        <enclosure url="{host}/{link}" length="{file_size}" type="video/{ext}"></enclosure>
         <itunes:author>{author}</itunes:author>
         <itunes:subtitle>{title}</itunes:subtitle>
         <itunes:summary>{summary}</itunes:summary>
