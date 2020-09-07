@@ -59,7 +59,7 @@ def download_videos():
                     y += 1
                     ydl_opts = {
                         # "simulate": True,
-                        "format": "bestvideo+bestaudio/best",  # "bestvideo+bestaudio", "best"
+                        "format": "bestvideo+bestaudio[height<=1080]/best[height<=1080]",  # "bestvideo+bestaudio", "best"
                         "outtmpl": "Videos/%(uploader)s/%(title)s.%(ext)s",
                         # "restrictfilenames": "True",
                         "ignoreerrors": True,
@@ -340,12 +340,13 @@ def main():
 while True:
     main()
 
-    sleeptime = 3 * 3600
-    print("Done, now waiting " + str(int(sleeptime / 3600)) + " hours for the next run")
-    i = 0
-    while i < sleeptime:
-        t = str(datetime.timedelta(seconds=sleeptime - i))
-        print(t, flush=True, end="")
-        print("\r", end="")
-        i += 1
-        time.sleep(1)
+
+#   sleeptime = 3 * 3600
+#   print("Done, now waiting " + str(int(sleeptime / 3600)) + " hours for the next run")
+#   i = 0
+#   while i < sleeptime:
+#       t = str(datetime.timedelta(seconds=sleeptime - i))
+#       print(t, flush=True, end="")
+#       print("\r", end="")
+#       i += 1
+#       time.sleep(1)
