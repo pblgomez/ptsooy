@@ -1,6 +1,9 @@
 # ptsooy
 ## Podcast the s*** out of youtube
 
+
+# Yeah, Google did it again, now you can't download the subscriptions opml file, so.... It's not working.
+
 A little program that takes your youtube subscriptions and downloads all the Videos and creates xml files for your favourite podcast player
 
 
